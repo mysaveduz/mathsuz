@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
 import TableBody from '@material-ui/core/TableBody';
@@ -32,10 +32,6 @@ function Todo (props) {
     const theme = useTheme();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-      document.title = `you cilckec page ${count} times.`;
-    })
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -58,8 +54,7 @@ function Todo (props) {
     }
     return (
       <>
-          <div onClick={() => setCount(count + 1)}
-               style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
           <Typography variant='h4'>
            My Todo List
           </Typography>
