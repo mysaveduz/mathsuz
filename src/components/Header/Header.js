@@ -13,6 +13,17 @@ import { Link } from 'react-scroll';
 
 import welcomeImg from '../../images/welcome/galaxy.jpg';
 
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+const drawerWidth = 240;
+
+
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -34,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 const whiteColor = createMuiTheme({
   palette: {
-    primary: {
+    secondary: {
       main: grey[50],
     },
   },
@@ -47,22 +58,24 @@ export default function Header() {
     <>
       <AppBar>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             MATHS
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color='inherit' href="dashboard">
+           Dashboard
+          </Button>
+          <Link to="login" smooth={true} duration={1000}>
+            <Button color="inherit">SignUp</Button>
+          </Link>
         </Toolbar>
       </AppBar>
       <div className={classes.welcome}>
         <div>
         <ThemeProvider theme={whiteColor}>
-          <Typography color='primary' gutterBottom variant='h2' component='h1'>
+          <Typography color='secondary' gutterBottom variant='h2' component='h1'>
             Matematik olimpiada sari...
           </Typography>
-          <Typography variant='h6' color='primary'>
+          <Typography variant='h6' color='secondary'>
             Bilim o'rgan, o'qi, olg'a!
           </Typography>
         </ThemeProvider>

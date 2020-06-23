@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import loginImg from '../../images/welcome/maths.jpg';
@@ -32,13 +32,16 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundImage: `url(${loginImg})`,
-    paddingTop: theme.spacing(8),
+    backgroundImage: `linear-gradient(45deg, rgba(37, 37, 37, 0.5), rgba(0, 0, 0, 0.5)), url(${loginImg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+    paddingTop: theme.spacing(9),
     paddingBottom: theme.spacing(8),
   },
   paper: {
     // marginTop: theme.spacing(8),
-    backgroundColor: 'rgb(255, 255, 255)',
+    backgroundColor: 'rgb(246, 246, 246)',
     padding: '8%',
     display: 'flex',
     flexDirection: 'column',
@@ -63,8 +66,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
+  const theme = useTheme();
+
   return (
-    <section className={classes.container}>
+    <section id='login' className={classes.container}>
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -86,7 +91,6 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -141,7 +145,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="#" variant='body2'>
                 Already have an account? Sign in
               </Link>
             </Grid>
