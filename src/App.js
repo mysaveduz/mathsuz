@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Header from './components/Header/Header.js';
-import Whymaths from './components/Whymaths/Whymaths.js';
-import Whyus from './components/Whyus/Whyus.js';
-import Login from './components/Login/Login.js';
-import Footer from './components/Footer/Footer.js';
+import Header from './components/Main/Header/Header.js';
+import Whymaths from './components/Main/Whymaths/Whymaths.js';
+import Whyus from './components/Main/Whyus/Whyus.js';
+import Login from './components/Main/Login/Login.js';
+import Footer from './components/Main/Footer/Footer.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
 import CssBaseline from '@material-ui/core/CssBaseline';
 

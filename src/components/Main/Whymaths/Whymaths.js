@@ -1,13 +1,13 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import { Paper, Typography, Grid, Card, CardContent } from '@material-ui/core';
+import { Paper, Typography,  Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import lamp from "../../images/services/lamp.png";
-import clock from "../../images/services/clock.png";
-import camera from "../../images/services/camera.png";
-import liquid from "../../images/services/liquid.png";
+import lamp from "../../../images/services/lamp.png";
+import clock from "../../../images/services/clock.png";
+import camera from "../../../images/services/camera.png";
+import liquid from "../../../images/services/liquid.png";
 
 const useStyles = makeStyles(theme => ({
    whySection: {

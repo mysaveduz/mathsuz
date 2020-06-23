@@ -5,7 +5,19 @@ import HomeIcon from '@material-ui/icons/Home';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
+import PersonIcon from '@material-ui/icons/Person';
+import BookIcon from '@material-ui/icons/Book';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+
 import { Link } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+import Todo from './Todo/Todo.js';
+import Blog from './Blog/Blog.js';
+
 
 const drawerWidth = 240;
 
@@ -21,10 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
       zIndex: 100000,
-    // [theme.breakpoints.up('sm')]: {
-    //
-     // zIndex: theme.zIndex.drawer + 1,
-    // },
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -41,14 +49,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     paddingTop: theme.mixins.toolbar.minHeight + 40,
-    maxWidth: 920,
+    maxWidth: 950,
     margin: '0 auto',
-    textAlign: 'center',
   },
   menuitem: {
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
-  }
+  },
 }));
 
 function Dashboard(props) {
@@ -60,24 +67,64 @@ function Dashboard(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const setFalseToDrawer = () => {
+    setMobileOpen(false);
+  }
 
-  var number = 3;
+  var fun = (sum, obj) => {
+     let n = obj.checked ? 0 : 1;
+     return sum + n;
+   }
+  var number = props.todos.reduce(fun , 0);
+
   const drawer = (
     <MenuList style={{outline: 'none'}}>
-       <MenuItem onClick={handleDrawerToggle} component={Link} to={'/'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/'} className={classes.menuitem}>
           <ListItemIcon>
-            <HomeIcon />
+            <HomeIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Home'} />
        </MenuItem>
-       <Divider />
-       <MenuItem onClick={handleDrawerToggle} component={Link} to={'/dashboard/profile'} className={classes.menuitem}>
+
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/blog'} className={classes.menuitem}>
           <ListItemIcon>
-            <Badge badgeContent={number} color="secondary">
-                <FormatListNumberedIcon />
-              </Badge>
+              <BookIcon color='primary'/>
+          </ListItemIcon>
+          <ListItemText primary={'Blog'} />
+       </MenuItem>
+
+       <Divider />
+
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/profile'} className={classes.menuitem}>
+          <ListItemIcon>
+              <PersonIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Profile'} />
+       </MenuItem>
+
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/lessons'} className={classes.menuitem}>
+          <ListItemIcon>
+              <AssignmentIcon color='primary'/>
+          </ListItemIcon>
+          <ListItemText primary={'Lessons'} />
+       </MenuItem>
+
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/todo'} className={classes.menuitem}>
+          <ListItemIcon>
+            <Badge badgeContent={number} color="secondary">
+                <FormatListNumberedIcon color='primary'/>
+              </Badge>
+          </ListItemIcon>
+          <ListItemText primary={'Todo'} />
+       </MenuItem>
+
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/settings'} className={classes.menuitem}>
+          <ListItemIcon>
+            <Badge badgeContent={1} color="secondary">
+                <SettingsIcon color='primary'/>
+              </Badge>
+          </ListItemIcon>
+          <ListItemText primary={'Settings'} />
        </MenuItem>
     </MenuList>
   );
@@ -140,7 +187,11 @@ function Dashboard(props) {
       </nav>
       <main className={classes.content}>
 
-       <h1> HEllo</h1>
+      <Switch>
+        <Route exact path='/dashboard/blog' component={Blog} />
+        <Route exact path='/dashboard/todo' component={Todo} />
+        <Route path='/dashboard' render={() => (<h1>Hello</h1>)} />
+      </Switch>
 
 
       </main>
@@ -148,10 +199,10 @@ function Dashboard(props) {
   );
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     todos: state
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    todos: state
+  }
+}
 
-export default Dashboard;
+export default connect(mapStateToProps)(Dashboard);

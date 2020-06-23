@@ -3,10 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import { Typography, Paper } from '@material-ui/core';
 
-import mathImg from "../../images/welcome/maths.jpg";
+import mathImg from "../../../images/welcome/maths.jpg";
 
 const useStyles = makeStyles(theme => ({
   whyUs: {

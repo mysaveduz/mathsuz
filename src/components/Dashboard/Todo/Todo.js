@@ -14,8 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import * as actions from '../../store/actions/index.js';
-import MakeTodo from '../MakeTodo/MakeTodo.js';
+import * as actions from '../../../store/actions/index.js';
+import MakeTodo from './MakeTodo/MakeTodo.js';
 
 const useStyles = makeStyles(theme => ({
   thead: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function Todos (props) {
+function Todo (props) {
 
     const theme = useTheme();
     const classes = useStyles();
@@ -78,7 +78,7 @@ function Todos (props) {
               </TableHead>
               <TableBody>
 
-                  {props.todos.map(todo => (
+              {props.todos.map(todo => (
                     <TableRow key={`${todo.id}`}>
                         <TableCell className={classes.tcell}>
                             <Checkbox
@@ -117,4 +117,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todos);
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);
