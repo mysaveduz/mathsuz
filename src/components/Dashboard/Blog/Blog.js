@@ -24,24 +24,33 @@ const useStyles = makeStyles( theme => ({
 function Blog() {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
 
   const fetchData = async () => {
-    const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
+    try {
+      setLoading(true);
+      const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
+      const responseObj = result.data;
+      const posts = Object.keys(responseObj).map(id => {
+        return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
+      });
 
-    const responseObj = result.data;
-    const posts = Object.keys(responseObj).map(id => {
-      return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
-    });
+      setPosts(posts);
 
+    } catch(err) {
+      setError(err);
+    }
     setLoading(false);
-    setPosts(posts);
    };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+   function Showerror(){
+     return <Typography variant='subtitle1' color='error'>ERROR: {error.message ? error.message : 'Something went wrong.'}</Typography>
+   }
    function Posts(){
      return(
      <section className={classes.posts}>
@@ -74,6 +83,8 @@ function Blog() {
 
    if(loading){
      return <Spinner />;
+   } if(error){
+     return <Showerror />
    } else {
      return <Posts />;
    }

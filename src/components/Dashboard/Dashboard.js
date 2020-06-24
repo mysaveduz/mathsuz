@@ -17,6 +17,7 @@ import * as actions from '../../store/actions/index.js';
 
 import Todo from './Todo/Todo.js';
 import Blog from './Blog/Blog.js';
+import Examples from './Examples/Examples.js';
 
 
 const drawerWidth = 240;
@@ -107,11 +108,11 @@ function Dashboard(props) {
           <ListItemText primary={'Profile'} />
        </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/lessons'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/examples'} className={classes.menuitem}>
           <ListItemIcon>
               <AssignmentIcon color='primary'/>
           </ListItemIcon>
-          <ListItemText primary={'Lessons'} />
+          <ListItemText primary={'Examples'} />
        </MenuItem>
 
        <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/todo'} className={classes.menuitem}>
@@ -195,6 +196,7 @@ function Dashboard(props) {
       <Switch>
         <Route exact path='/dashboard/blog' component={Blog} />
         <Route exact path='/dashboard/todo' component={Todo} />
+        <Route exact path='/dashboard/examples' component={Examples} />
         <Route path='/dashboard' render={() => (<h1>Hello</h1>)} />
       </Switch>
 
