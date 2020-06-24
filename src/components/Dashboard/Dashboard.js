@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import{ AppBar,Button, CssBaseline, Drawer, Hidden, IconButton, ListItemText, MenuItem, ListItemIcon, MenuList, Toolbar, Typography, Divider }from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
@@ -11,9 +11,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import { Link } from 'react-router-dom';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import * as actions from '../../store/actions/index.js';
 
 import Todo from './Todo/Todo.js';
 import Blog from './Blog/Blog.js';
@@ -49,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     paddingTop: theme.mixins.toolbar.minHeight + 40,
-    maxWidth: 950,
-    margin: '0 auto',
   },
   menuitem: {
     padding: theme.spacing(1),
@@ -59,6 +57,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Dashboard(props) {
+  const appStarting = () => {
+    props.onAppStarter();
+  }
+  useEffect(() => {
+    appStarting();
+  }, []);
+
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -205,4 +210,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = dispatch => {
+  return {
+    onAppStarter: () => dispatch(actions.appStarted())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

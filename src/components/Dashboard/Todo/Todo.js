@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,13 +11,22 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index.js';
 import MakeTodo from './MakeTodo/MakeTodo.js';
 
 const useStyles = makeStyles(theme => ({
+  todo: {
+    maxWidth: 920,
+    margin: '0 auto',
+  },
+  firstSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
   thead: {
     fontWeight: 'bolder'
   },
@@ -29,9 +38,14 @@ const useStyles = makeStyles(theme => ({
 
 function Todo (props) {
 
-    const theme = useTheme();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    // const appStarting = () => {
+    //   props.onAppStarter();
+    // }
+    // useEffect(() => {
+    //   appStarting();
+    // }, []);
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -53,8 +67,8 @@ function Todo (props) {
       props.onDeleteTodo(id)
     }
     return (
-      <>
-          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 10}}>
+      <section className={classes.todo}>
+          <div className={classes.firstSection}>
           <Typography variant='h4'>
            My Todo List
           </Typography>
@@ -99,7 +113,7 @@ function Todo (props) {
               </TableBody>
             </Table>
           </TableContainer>
-      </>
+      </section>
     );
 }
 
@@ -113,7 +127,8 @@ const mapDispatchToProps = dispatch => {
   return {
      onTodoAdd: (text) => dispatch(actions.todoAdded(text)),
      onCheckTodo: (id) => dispatch(actions.checkboxTodo(id)),
-     onDeleteTodo: (id) => dispatch(actions.deleteTodo(id))
+     onDeleteTodo: (id) => dispatch(actions.deleteTodo(id)),
+     onAppStarter: () => dispatch(actions.appStarted())
   }
 }
 

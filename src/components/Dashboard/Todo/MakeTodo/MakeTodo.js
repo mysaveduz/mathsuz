@@ -8,7 +8,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default (props) => {
   const [text, writeText] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
+  const addingTodo = (event) => {
+    const inputText = event.target.value
+    writeText(inputText);
+    if(inputText){
+      setDisabled(false)
+    } else {
+      setDisabled(true);
+    }
+  }
   const addButtonHandler = () => {
     props.handleCloseButton(text)
     writeText('');
@@ -24,14 +34,14 @@ export default (props) => {
             label="Enter Todo"
             type="text"
             fullWidth
-            onChange={(event) => writeText(event.target.value)}
+            onChange={addingTodo}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={addButtonHandler} color="primary">
+          <Button onClick={addButtonHandler} color="primary" disabled={disabled}>
             Add-Todo
           </Button>
         </DialogActions>

@@ -20,3 +20,9 @@ export const deleteTodo = (id) => {
     id: id
   }
 }
+
+export const appStarted = () => {
+  return {
+    type: actionTypes.APP_STARTED
+  }
+}

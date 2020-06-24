@@ -1,5 +1,6 @@
 export {
   todoAdded,
   checkboxTodo,
-  deleteTodo
+  deleteTodo,
+  appStarted
 } from './todo.js'

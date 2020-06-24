@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Typography, CardContent, Container, CardHeader, Avatar } from '@material-ui/core';
+import { Card, Typography, CardContent, CardHeader, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Spinner from './Spinner/Spinner.js'
 
 const useStyles = makeStyles( theme => ({
   posts: {
@@ -22,25 +24,27 @@ const useStyles = makeStyles( theme => ({
 function Blog() {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
+
+    const responseObj = result.data;
+    const posts = Object.keys(responseObj).map(id => {
+      return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
+    });
+
+    setLoading(false);
+    setPosts(posts);
+   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
-
-      const responseObj = result.data;
-      const posts = Object.keys(responseObj).map(id => {
-        return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
-      });
-
-      setPosts(posts);
-      };
-
     fetchData();
   }, []);
 
-  return(
-
-    <section className={classes.posts}>
+   function Posts(){
+     return(
+     <section className={classes.posts}>
       {posts.map(post => (
         <Card  className={classes.card} elevation={3} key={post.id}>
         <CardHeader
@@ -65,8 +69,14 @@ function Blog() {
         </Card>
       ))}
     </section>
+    );
+   }
 
-  );
+   if(loading){
+     return <Spinner />;
+   } else {
+     return <Posts />;
+   }
 }
 
 export default Blog;
