@@ -9,14 +9,14 @@ import  posts from '../../../fakeData.js';
 const useStyles = makeStyles( theme => ({
   paper: {
     backgroundColor: 'inherit',
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridGap: 7,
   },
   card: {
-    width: 360,
-    // minWidth: 325,
-    margin: 10,
+    // maxWidth: 360,
+    // minWidth: 300,
+    // margin: 10,
   },
   cardActions: {
     display: 'flex',
@@ -68,7 +68,7 @@ function Blog() {
      <>
      <Typography variant='h4' gutterBottom>Postlar:</Typography>
 
-     <Paper component='section' elevation={0} className={classes.paper}>
+     <Paper elevation={0} className={classes.paper}>
       {posts.map(post => (
         <Card key={post.id} className={classes.card}>
          <CardContent>
