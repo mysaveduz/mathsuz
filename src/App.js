@@ -1,32 +1,30 @@
 import React from 'react';
 
-import Header from './components/Main/Header/Header.js';
-import Whymaths from './components/Main/Whymaths/Whymaths.js';
-import Whyus from './components/Main/Whyus/Whyus.js';
-import Login from './components/Main/Login/Login.js';
-import Footer from './components/Main/Footer/Footer.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
+import Main from './components/Main/Main.js';
+import Page404 from './components/Page404/Page404.js';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { Route, BrowserRouter } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
 
 function App() {
   return (
      <>
-     <BrowserRouter>
-       <Route path='/dashboard' component={Dashboard} />
-       <Route path='/' exact render={() => (
-         <>
-           <CssBaseline />
-           <Header />
-           <Whymaths />
-           <Whyus />
-           <Login />
-           <Footer />
-         </>
-       )}/>
-     </BrowserRouter>
+     <CssBaseline />
+     <Router>
+        <Switch>
+           <Route path='/dashboard' component={Dashboard} />
+           <Route path='/' exact component={Main}/>
+           <Route path='/404' component={Page404} />
+           <Redirect to='/404' />
+        </Switch>
+     </Router>
      </>
   );
 }

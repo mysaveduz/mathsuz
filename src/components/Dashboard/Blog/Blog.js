@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Route } from 'react-router-dom';
 
 import Spinner from './Spinner/Spinner.js'
-import Fullpost from './Fullpost/Fullpost.js'
 import  posts from '../../../fakeData.js';
 
 const useStyles = makeStyles( theme => ({
