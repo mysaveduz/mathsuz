@@ -194,7 +194,7 @@ function Dashboard(props) {
       <main className={classes.content}>
 
       <Switch>
-        <Route exact path='/dashboard/blog' component={Blog} />
+        <Route path='/dashboard/blog' component={Blog} />
         <Route exact path='/dashboard/todo' component={Todo} />
         <Route exact path='/dashboard/examples' component={Examples} />
         <Route path='/dashboard' render={() => (<h1>Hello</h1>)} />

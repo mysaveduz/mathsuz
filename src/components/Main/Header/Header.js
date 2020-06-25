@@ -8,7 +8,7 @@ import grey  from '@material-ui/core/colors/grey';
 import { createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import './Header.css';
 import { Link } from 'react-scroll';
-
+import { Link as RouterLink} from 'react-router-dom';
 import welcomeImg from '../../../images/welcome/galaxy.jpg';
 
 
@@ -50,8 +50,10 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             MATHS
           </Typography>
-          <Button color='inherit' href="dashboard">
-           Dashboard
+          <Button color='inherit'>
+            <RouterLink style={{textDecoration: 'none', color: 'inherit'}} to='dashboard'>
+              Dashboard
+            </RouterLink>
           </Button>
           <Link to="login" smooth={true} duration={1000}>
             <Button color="inherit">SignUp</Button>

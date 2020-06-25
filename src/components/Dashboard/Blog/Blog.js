@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Paper, Typography, CardContent, CardActions, Grid, Link, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Route } from 'react-router-dom';
 
 import Spinner from './Spinner/Spinner.js'
+import Fullpost from './Fullpost/Fullpost.js'
 import  posts from '../../../fakeData.js';
 
 const useStyles = makeStyles( theme => ({
@@ -30,35 +32,13 @@ const useStyles = makeStyles( theme => ({
 
 
 
-function Blog() {
+function Blog(props) {
   const classes = useStyles();
   // const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
 
-  // const fetchData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
-  //     const responseObj = result.data;
-  //     const posts = Object.keys(responseObj).map(id => {
-  //       return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
-  //     });
-  //
-  //     setPosts(posts);
-  //
-  //   } catch(err) {
-  //     setError(err);
-  //   }
-  //   setLoading(false);
-  //  };
-  //
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-   setTimeout(() => {
-     setLoading(false);
-   }, 1000);
+
 
    function Showerror(){
      return <Typography variant='subtitle1' color='error'>ERROR: {error.message ? error.message : 'Something went wrong.'}</Typography>
@@ -67,6 +47,7 @@ function Blog() {
      return(
      <>
      <Typography variant='h4' gutterBottom>Postlar:</Typography>
+
 
      <Paper elevation={0} className={classes.paper}>
       {posts.map(post => (
@@ -133,7 +114,7 @@ function Blog() {
          </CardContent>
          <CardActions className={classes.cardActions}>
          <Typography>
-             <Link href="#">
+             <Link href='#'>
              Postga o'tish
             </Link>
          </Typography>
@@ -180,3 +161,37 @@ export default Blog;
 //
 //   </CardContent>
 // </Card>
+
+
+
+
+
+// const fetchData = async () => {
+//   try {
+//     setLoading(true);
+//     const result = await axios(`https://my-blog-uz.firebaseio.com/blog-posts.json`);
+//     const responseObj = result.data;
+//     const posts = Object.keys(responseObj).map(id => {
+//       return { id: id,  fullText: responseObj[id].post, config: responseObj[id].config }
+//     });
+//
+//     setPosts(posts);
+//
+//   } catch(err) {
+//     setError(err);
+//   }
+//   setLoading(false);
+//  };
+//
+// useEffect(() => {
+//   fetchData();
+// }, []);
+
+
+
+
+// const onGofullpost = (id) => {
+//   props.history.push({pathname: '/dashboard/blog/' + id});
+//   console.log(props.history);
+// }
+// <Route path={props.match.url+ '/:id'} component={Fullpost} />
