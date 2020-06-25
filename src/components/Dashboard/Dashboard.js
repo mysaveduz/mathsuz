@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import{ AppBar,Button, CssBaseline, Drawer, Hidden, IconButton, ListItemText, MenuItem, ListItemIcon, MenuList, Toolbar, Typography, Divider }from '@material-ui/core';
+import{ AppBar,Button, Paper, CssBaseline, Drawer, Hidden, IconButton, ListItemText, MenuItem, ListItemIcon, MenuList, Toolbar, Typography, Divider }from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
@@ -7,17 +7,18 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import PersonIcon from '@material-ui/icons/Person';
 import BookIcon from '@material-ui/icons/Book';
-import SettingsIcon from '@material-ui/icons/Settings';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
-import { Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index.js';
 
 import Todo from './Todo/Todo.js';
 import Blog from './Blog/Blog.js';
-import Examples from './Examples/Examples.js';
+import Profile from './Profile/Profile.js';
+import Examples from './Examples/index.js';
 
 
 const drawerWidth = 240;
@@ -50,12 +51,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     paddingTop: theme.mixins.toolbar.minHeight + 40,
+    backgroundColor: 'inherit',
   },
   menuitem: {
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
   },
 }));
+
+function CustomNavigation(){
+  return <NavLink activeStyle={{fontWeight: 'bold', color: '#2f66f2'}}/>
+}
+
 
 function Dashboard(props) {
   const appStarting = () => {
@@ -85,14 +92,14 @@ function Dashboard(props) {
 
   const drawer = (
     <MenuList style={{outline: 'none'}}>
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/'} className={classes.menuitem}>
           <ListItemIcon>
             <HomeIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Home'} />
        </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/blog'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/blog'} className={classes.menuitem}>
           <ListItemIcon>
               <BookIcon color='primary'/>
           </ListItemIcon>
@@ -101,21 +108,28 @@ function Dashboard(props) {
 
        <Divider />
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/profile'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/profile'} className={classes.menuitem}>
           <ListItemIcon>
               <PersonIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Profile'} />
        </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/examples'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/examples'} className={classes.menuitem}>
           <ListItemIcon>
-              <AssignmentIcon color='primary'/>
+              <ImportContactsIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Examples'} />
        </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/todo'} className={classes.menuitem}>
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/competitions'} className={classes.menuitem}>
+       <ListItemIcon>
+       <EventNoteIcon color='primary'/>
+       </ListItemIcon>
+       <ListItemText primary={'Competitions'} />
+       </MenuItem>
+
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/todo'} className={classes.menuitem}>
           <ListItemIcon>
             <Badge badgeContent={number} color="secondary">
                 <FormatListNumberedIcon color='primary'/>
@@ -124,15 +138,7 @@ function Dashboard(props) {
           <ListItemText primary={'Todo'} />
        </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={Link} to={'/dashboard/settings'} className={classes.menuitem}>
-          <ListItemIcon>
-            <Badge badgeContent={1} color="secondary">
-                <SettingsIcon color='primary'/>
-              </Badge>
-          </ListItemIcon>
-          <ListItemText primary={'Settings'} />
-       </MenuItem>
-    </MenuList>
+       </MenuList>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -160,7 +166,7 @@ function Dashboard(props) {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* The implementation can be swapped with js to avoid SEO duplication of NavLinks. */}
         <Hidden mdUp implementation="css">
           <Drawer
             container={container}
@@ -191,17 +197,18 @@ function Dashboard(props) {
         </Hidden>
 
       </nav>
-      <main className={classes.content}>
+      <Paper elevation={0} component='main' className={classes.content}>
 
       <Switch>
         <Route path='/dashboard/blog' component={Blog} />
         <Route exact path='/dashboard/todo' component={Todo} />
-        <Route exact path='/dashboard/examples' component={Examples} />
-        <Route path='/dashboard' render={() => (<h1>Hello</h1>)} />
+        <Route path='/dashboard/examples' component={Examples} />
+        <Route path='/dashboard/profile' component={Profile} />
+        <Route path='/dashboard' render={() => (<h1>Dashboard</h1>)} />
       </Switch>
 
 
-      </main>
+      </Paper>
     </div>
   );
 }

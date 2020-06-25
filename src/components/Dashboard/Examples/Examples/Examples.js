@@ -1,16 +1,21 @@
 import React from 'react';
-import { Paper, Grid, Typography, Card, CardActions, CardContent, Button, Link } from '@material-ui/core';
+import { Paper, Grid, Typography, Card, CardActions, CardContent, Button  } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
+import { useRouteMatch, Link } from 'react-router-dom';
 
-import examples from '../../../fakeData.js';
+import examples from '../../../../fakeData.js';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   paper: {
     backgroundColor: 'inherit',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridGap: 7,
   },
   card: {
-    maxWidth: 400,
-    minWidth: 325,
+    // maxWidth: 360,
+    // minWidth: 300,
+    // margin: 10,
   },
   cardActions: {
     display: 'flex',
@@ -20,20 +25,19 @@ const useStyles = makeStyles({
   bold: {
     fontWeight: 'bold',
   },
-});
+}));
 
 
 function Examples(){
 
   const classes = useStyles();
-
+  const { url } = useRouteMatch();
   return(
+  <>
+    <Typography variant='h4' gutterBottom>Misollar:</Typography>
     <Paper className={classes.paper} square elevation={0}>
-      <Typography variant='h4' gutterBottom>Misollar:</Typography>
-      <Grid container spacing={3}>
       {examples.map(exp => (
-        <Grid  key={exp.id} item xs>
-        <Card className={classes.card}>
+        <Card key={exp.id} className={classes.card}>
          <CardContent>
            <Typography variant='h5' gutterBottom noWrap>
              {exp.name}
@@ -81,17 +85,16 @@ function Examples(){
            </Grid>
          </CardContent>
          <CardActions className={classes.cardActions}>
-         <Typography>
-             <Link href="#">
+          <Typography>
+             <Link to={`${url}/${exp.id}`}>
              Misolga o'tish
             </Link>
-         </Typography>
+          </Typography>
          </CardActions>
         </Card>
-        </Grid>
       ))}
-      </Grid>
     </Paper>
+  </>
   );
 }
 
