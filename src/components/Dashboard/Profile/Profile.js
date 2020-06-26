@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography, Paper, MenuIcon, Divider, MenuItem, MenuList, ListItemIcon,Menu, ListItemText } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Typography, Switch as Switcher, FormControlLabel, Paper, MenuIcon, Divider, MenuItem, MenuList, ListItemIcon,Menu, ListItemText } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { makeStyles } from '@material-ui/core/styles';
 import {NavLink} from 'react-router-dom';
@@ -9,6 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import CreateIcon from '@material-ui/icons/Create';
 
 import { useRouteMatch, Route, Switch } from 'react-router-dom';
 
@@ -35,13 +36,23 @@ const useStyles = makeStyles(theme => ({
      height: '2em',
      width: '2em',
    },
+   switcher: {
+     display: 'flex',
+     justifyContent: 'flex-end',
+   },
 }));
 
 function Profile() {
+  const [isSwitch, setIsSwitch] = useState(false);
+  const handleSwitchChange = () => {
+    setIsSwitch(!isSwitch);
+  }
+
+
   const { path, url } = useRouteMatch();
   console.log(useRouteMatch());
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -51,13 +62,17 @@ function Profile() {
 
    }
 
-   const [anchorEl, setAnchorEl] = React.useState(null);
+   const [anchorEl, setAnchorEl] = useState(null);
    const handleClick = (event) => {
      setAnchorEl(event.currentTarget);
    };
    const handleClose = () => {
      setAnchorEl(null);
    };
+
+
+
+
 
   return(
     <Paper className={classes.paper} square elevation={0}>
@@ -90,6 +105,53 @@ function Profile() {
       </Typography>
       <Paper square elevation={0} style={{backgroundColor: 'inherit'}}>
 
+      <div className={classes.switcher}>
+      <FormControlLabel
+        value="end"
+        control={<Switcher
+                  checked={isSwitch}
+                  onChange={handleSwitchChange}
+                  color="primary"
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                  />}
+        label="Yozish"
+        labelPlacement="end"
+      />
+      </div>
+      { isSwitch
+      ?
+      <MenuList style={{outline: 'none'}}>
+
+         <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/written`} className={classes.menuitem}>
+            <ListItemIcon>
+                <DoneIcon color='primary'/>
+            </ListItemIcon>
+            <ListItemText primary={'Yozganlarim'} />
+         </MenuItem>
+
+
+         <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/write-later`} className={classes.menuitem}>
+            <ListItemIcon>
+                <WatchLaterIcon color='primary'/>
+            </ListItemIcon>
+            <ListItemText primary={'Keyinroqqa saqlanganlar'} />
+         </MenuItem>
+
+
+
+         <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/change-written`} className={classes.menuitem}>
+            <ListItemIcon>
+                <CreateIcon color='primary'/>
+            </ListItemIcon>
+            <ListItemText primary={"O'zgartiraman"} />
+         </MenuItem>
+
+
+
+         <Divider />
+      </MenuList>
+
+            :
            <MenuList style={{outline: 'none'}}>
 
               <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/done`} className={classes.menuitem}>
@@ -118,14 +180,17 @@ function Profile() {
 
               <Divider />
            </MenuList>
+         }
       <Switch>
         <Route path={`${path}/done`} component={Done}  />
         <Route path={`${path}/later-saved`} component={Saved}  />
         <Route path={`${path}/results`} component={Results}  />
+
+        <Route path={`${path}/written`} render={() => (<h1>Yozganlarim</h1>)}  />
+        <Route path={`${path}/write-later`} component={() => (<h1>Keyinroqqa</h1>)}  />
+        <Route path={`${path}/change-written`} component={() => (<h1>O'zgartiraman</h1>)}  />
       </Switch>
-     <p>
-     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-     </p>
+
     </Paper>
     </Paper>
   );
@@ -141,3 +206,8 @@ export default Profile;
 //    </ListItemIcon>
 //    <ListItemText primary={'Musobaqalar'} />
 // </MenuItem>
+
+
+// <p>
+// Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+// </p>

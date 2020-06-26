@@ -10,6 +10,7 @@ import BookIcon from '@material-ui/icons/Book';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import CreateIcon from '@material-ui/icons/Create';
 
 import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -59,9 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CustomNavigation(){
-  return <NavLink activeStyle={{fontWeight: 'bold', color: '#2f66f2'}}/>
-}
+
 
 
 function Dashboard(props) {
@@ -124,6 +123,15 @@ function Dashboard(props) {
        <EventNoteIcon color='primary'/>
        </ListItemIcon>
        <ListItemText primary={'Competitions'} />
+       </MenuItem>
+
+       <Divider />
+
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/write'} className={classes.menuitem}>
+       <ListItemIcon>
+       <CreateIcon color='primary'/>
+       </ListItemIcon>
+       <ListItemText primary={'Write'} />
        </MenuItem>
 
        <Divider />
@@ -205,6 +213,7 @@ function Dashboard(props) {
         <Route exact path='/dashboard/todo' component={Todo} />
         <Route path='/dashboard/examples' component={Examples} />
         <Route path='/dashboard/profile' component={Profile} />
+        <Route path='/dashboard/write' render={() => (<h1>Write</h1>)} />
         <Route path='/dashboard' render={() => (<h1>Dashboard</h1>)} />
       </Switch>
 
