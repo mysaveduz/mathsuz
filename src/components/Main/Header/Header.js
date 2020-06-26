@@ -55,6 +55,11 @@ export default function Header() {
               Dashboard
             </RouterLink>
           </Button>
+          <Button color='inherit'>
+            <RouterLink style={{textDecoration: 'none', color: 'inherit'}}  to='/blog'>
+            Blog
+            </RouterLink>
+          </Button>
           <Link to="login" smooth={true} duration={1000}>
             <Button color="inherit">SignUp</Button>
           </Link>

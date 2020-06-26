@@ -11,7 +11,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index.js';
 
@@ -92,27 +92,24 @@ function Dashboard(props) {
 
   const drawer = (
     <MenuList style={{outline: 'none'}}>
-       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/'} className={classes.menuitem}>
-          <ListItemIcon>
-            <HomeIcon color='primary'/>
-          </ListItemIcon>
-          <ListItemText primary={'Home'} />
-       </MenuItem>
 
-       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/blog'} className={classes.menuitem}>
-          <ListItemIcon>
-              <BookIcon color='primary'/>
-          </ListItemIcon>
-          <ListItemText primary={'Blog'} />
-       </MenuItem>
 
-       <Divider />
+
 
        <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/profile'} className={classes.menuitem}>
           <ListItemIcon>
               <PersonIcon color='primary'/>
           </ListItemIcon>
           <ListItemText primary={'Profile'} />
+       </MenuItem>
+
+       <Divider />
+
+       <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/maqola'} className={classes.menuitem}>
+          <ListItemIcon>
+              <BookIcon color='primary'/>
+          </ListItemIcon>
+          <ListItemText primary={'Maqolalar'} />
        </MenuItem>
 
        <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/examples'} className={classes.menuitem}>
@@ -128,6 +125,8 @@ function Dashboard(props) {
        </ListItemIcon>
        <ListItemText primary={'Competitions'} />
        </MenuItem>
+
+       <Divider />
 
        <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/todo'} className={classes.menuitem}>
           <ListItemIcon>
@@ -161,7 +160,9 @@ function Dashboard(props) {
             Dashboard
           </Typography>
           <Button color='inherit' style={{marginLeft: 'auto'}}>
-            Logout
+            <Link style={{textDecoration: 'none', color: 'inherit'}}  to='/'>
+            Main page
+            </Link>
           </Button>
         </Toolbar>
       </AppBar>
@@ -200,7 +201,7 @@ function Dashboard(props) {
       <Paper elevation={0} component='main' className={classes.content}>
 
       <Switch>
-        <Route path='/dashboard/blog' component={Blog} />
+        <Route path='/dashboard/maqola' component={Blog} />
         <Route exact path='/dashboard/todo' component={Todo} />
         <Route path='/dashboard/examples' component={Examples} />
         <Route path='/dashboard/profile' component={Profile} />
@@ -225,3 +226,12 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+
+//
+// <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/'} className={classes.menuitem}>
+//    <ListItemIcon>
+//      <HomeIcon color='primary'/>
+//    </ListItemIcon>
+//    <ListItemText primary={'Home'} />
+// </MenuItem>

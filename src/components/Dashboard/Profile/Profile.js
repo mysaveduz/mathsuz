@@ -10,7 +10,11 @@ import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, Route, Switch } from 'react-router-dom';
+
+import Saved from './Saved/Saved.js';
+import Done from './Done/Done.js';
+import Results from './Results/Results.js';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -35,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 function Profile() {
   const { path, url } = useRouteMatch();
+  console.log(useRouteMatch());
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -95,19 +100,14 @@ function Profile() {
               </MenuItem>
 
 
-              <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/later`} className={classes.menuitem}>
+              <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/later-saved`} className={classes.menuitem}>
                  <ListItemIcon>
                      <WatchLaterIcon color='primary'/>
                  </ListItemIcon>
-                 <ListItemText primary={'Saqlanganlar'} />
+                 <ListItemText primary={'Keyinroqqa saqlanganlar'} />
               </MenuItem>
 
-              <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/competitions`} className={classes.menuitem}>
-                 <ListItemIcon>
-                     <EventNoteIcon color='primary'/>
-                 </ListItemIcon>
-                 <ListItemText primary={'Musobaqalar'} />
-              </MenuItem>
+
 
               <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/results`} className={classes.menuitem}>
                  <ListItemIcon>
@@ -118,8 +118,11 @@ function Profile() {
 
               <Divider />
            </MenuList>
-
-
+      <Switch>
+        <Route path={`${path}/done`} component={Done}  />
+        <Route path={`${path}/later-saved`} component={Saved}  />
+        <Route path={`${path}/results`} component={Results}  />
+      </Switch>
      <p>
      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
      </p>
@@ -130,3 +133,11 @@ function Profile() {
 
 
 export default Profile;
+
+
+// <MenuItem onClick={setFalseToDrawer} component={NavLink} to={`${url}/competitions`} className={classes.menuitem}>
+//    <ListItemIcon>
+//        <EventNoteIcon color='primary'/>
+//    </ListItemIcon>
+//    <ListItemText primary={'Musobaqalar'} />
+// </MenuItem>

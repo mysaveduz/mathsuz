@@ -21,6 +21,7 @@ function App() {
         <Switch>
            <Route path='/dashboard' component={Dashboard} />
            <Route path='/' exact component={Main}/>
+           <Route path='/blog' render={() => (<h1>Blog</h1>)} />
            <Route path='/404' component={Page404} />
            <Redirect to='/404' />
         </Switch>
