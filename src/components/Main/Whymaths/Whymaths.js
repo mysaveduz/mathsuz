@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
       minHeight: '60vh',
       paddingTop: '70px',
       paddingBottom: '70px',
-      backgroundImage: 'linear-gradient(45deg, rgb(184, 11, 78), rgb(29, 37, 231))',
+      // backgroundImage: 'linear-gradient(45deg, rgb(184, 11, 78), rgb(29, 37, 231))',
    },
 
   services: {

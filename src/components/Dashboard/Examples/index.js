@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
+import React  from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import Examples from './Examples/Examples.js';

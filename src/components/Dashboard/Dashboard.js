@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import{ AppBar,Button, Paper, CssBaseline, Drawer, Hidden, IconButton, ListItemText, MenuItem, ListItemIcon, MenuList, Toolbar, Typography, Divider }from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import PersonIcon from '@material-ui/icons/Person';
 import BookIcon from '@material-ui/icons/Book';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import CreateIcon from '@material-ui/icons/Create';
 
@@ -70,12 +68,10 @@ function Dashboard(props) {
   useEffect(() => {
     appStarting();
   }, []);
-
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -91,9 +87,6 @@ function Dashboard(props) {
 
   const drawer = (
     <MenuList style={{outline: 'none'}}>
-
-
-
 
        <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/dashboard/profile'} className={classes.menuitem}>
           <ListItemIcon>
@@ -217,7 +210,6 @@ function Dashboard(props) {
         <Route path='/dashboard' render={() => (<h1>Dashboard</h1>)} />
       </Switch>
 
-
       </Paper>
     </div>
   );
@@ -235,12 +227,3 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-
-
-//
-// <MenuItem onClick={setFalseToDrawer} component={NavLink} to={'/'} className={classes.menuitem}>
-//    <ListItemIcon>
-//      <HomeIcon color='primary'/>
-//    </ListItemIcon>
-//    <ListItemText primary={'Home'} />
-// </MenuItem>

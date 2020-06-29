@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Grid, Typography, Card, CardActions, CardContent, Button  } from '@material-ui/core';
+import { Paper, Grid, Typography, Card, CardActions, CardContent  } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import { useRouteMatch, Link } from 'react-router-dom';
 
@@ -11,11 +11,6 @@ const useStyles = makeStyles( theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
     gridGap: 7,
-  },
-  card: {
-    // maxWidth: 360,
-    // minWidth: 300,
-    // margin: 10,
   },
   cardActions: {
     display: 'flex',
@@ -37,7 +32,7 @@ function Examples(){
     <Typography variant='h4' gutterBottom>Misollar:</Typography>
     <Paper className={classes.paper} square elevation={0}>
       {examples.map(exp => (
-        <Card key={exp.id} className={classes.card}>
+        <Card key={exp.id}>
          <CardContent>
            <Typography variant='h5' gutterBottom noWrap>
              {exp.name}
